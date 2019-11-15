@@ -6,17 +6,68 @@
 #include <iostream>
 #include <crypt.h>
 #include <chrono>
+#include <omp.h>
 #include "PCWorker.h"
 #define FILENAME "passdict.txt"
 
 PCWorker::PCWorker(std::string toCrack, int tries) {
     passwordList = loadPasswordList();
     this->toCrack = toCrack;
-    this->toCrackHashed = crypt(toCrack.c_str(), "qwerty");
+    toCrackHashed = crypt(toCrack.c_str(), "qwerty");
     this->tries = tries;
 }
 
+void PCWorker::parallelAutomaticAttack(int numberOfThreads) {
+    printf("--- Begin automatic parallel attack ---\n");
+    for (int i = 0; i < tries; ++i) {
+        std::chrono::steady_clock::time_point beginAttack = std::chrono::steady_clock::now();
+        #pragma omp parallel for num_threads(numberOfThreads)
+        for(i = 0; i < passwordList.size(); i++) {
+            std::string inPlaceHashedPassword = crypt(passwordList[i].c_str(), "qwerty");
+            if (inPlaceHashedPassword == toCrackHashed) {
+                std::chrono::steady_clock::time_point endAttack = std::chrono::steady_clock::now();
+                printf("Password found: %s - ", passwordList[i].c_str());
+                std::cout << "Time elapsed: "
+                          << std::chrono::duration_cast<std::chrono::nanoseconds>(endAttack - beginAttack).count()
+                          << " nanoseconds" << std::endl;
+            }
+        }
+    }
+}
+
+void PCWorker::parallelAttack(int numberOfThreads) {
+    printf("--- Begin parallel attack ---\n");
+    double splittedPasswordListRowsPerThread = (double)passwordList.size() / (double)numberOfThreads;
+    for (int i = 0; i < tries; ++i) {
+        volatile bool passwordNotFound = true;
+        std::chrono::steady_clock::time_point beginAttack = std::chrono::steady_clock::now();
+        #pragma omp parallel num_threads(numberOfThreads) shared(passwordNotFound)
+        {
+            int threadNumber = omp_get_thread_num();
+            for (int j = splittedPasswordListRowsPerThread*threadNumber; j < splittedPasswordListRowsPerThread*(threadNumber + 1 ); ++j) {
+                if(j < passwordList.size() && passwordNotFound){
+                    std::string inPlaceHashedPassword = crypt(passwordList[j].c_str(), "qwerty");
+                    if(inPlaceHashedPassword == toCrackHashed){
+                        std::chrono::steady_clock::time_point endAttack = std::chrono::steady_clock::now();
+                        passwordNotFound = false;
+                        printf("Thread #%d - Pass #%d - Password found: %s - ", threadNumber, i, passwordList[j].c_str());
+                        std::cout << "Time elapsed: " << std::chrono::duration_cast<std::chrono::nanoseconds> (endAttack - beginAttack).count() << " nanoseconds" << std::endl;
+                        runTimesParallel.push_back(std::chrono::duration_cast<std::chrono::nanoseconds> (endAttack - beginAttack).count());
+                        break;
+                    }
+                } else {
+                    break;
+                }
+            }
+        }
+
+    }
+
+    printf("--- Parallel attack ended ---");
+}
+
 void PCWorker::sequentialAttack() {
+    printf("--- Begin sequential attack ---\n");
     for (int i = 0; i < tries; ++i) {
         std::chrono::steady_clock::time_point beginAttack = std::chrono::steady_clock::now();
         for(std::string& password: passwordList){
@@ -25,13 +76,16 @@ void PCWorker::sequentialAttack() {
                 std::chrono::steady_clock::time_point endAttack = std::chrono::steady_clock::now();
                 printf("Pass #%d - Password found: %s - ", i, password.c_str());
                 std::cout << "Time elapsed: " << std::chrono::duration_cast<std::chrono::nanoseconds> (endAttack - beginAttack).count() << " nanoseconds" << std::endl;
-                this->runTimesSequential.push_back(std::chrono::duration_cast<std::chrono::nanoseconds> (endAttack - beginAttack).count());
+                runTimesSequential.push_back(std::chrono::duration_cast<std::chrono::nanoseconds> (endAttack - beginAttack).count());
+                break;
             }
         }
     }
     long averageTime = getAverageTime(runTimesSequential);
-    printf("Sequential attack ended. Average time: %d nanoseconds", averageTime);
+    printf("--- Sequential attack ended. Average time: %ld nanoseconds ---\n", averageTime);
 }
+
+
 
 std::vector<std::string> PCWorker::loadPasswordList() {
     std::vector<std::string> vec;

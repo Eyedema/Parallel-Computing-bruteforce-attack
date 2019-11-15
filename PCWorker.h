@@ -13,6 +13,8 @@ class PCWorker {
 public:
     PCWorker(std::string toCrack, int tries);
     void sequentialAttack();
+    void parallelAttack(int numberOfThreads);
+    void parallelAutomaticAttack(int numberOfThreads);
 
 private:
     std::vector<std::string> loadPasswordList();
@@ -23,6 +25,7 @@ private:
     std::string toCrackHashed;
     int tries;
     std::vector<long> runTimesSequential;
+    std::vector<long> runTimesParallel;
     long getAverageTime(std::vector<long> &vec);
 };
 
