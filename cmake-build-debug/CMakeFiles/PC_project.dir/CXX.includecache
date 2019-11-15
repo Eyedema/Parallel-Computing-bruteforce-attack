@@ -13,6 +13,8 @@ iostream
 -
 crypt.h
 -
+chrono
+-
 PCWorker.h
 /cygdrive/c/Users/ublud/Documents/GitHub/Parallel-Computing/PCWorker.h
 
@@ -21,18 +23,4 @@ string
 -
 vector
 -
-
-/cygdrive/c/Users/ublud/Documents/GitHub/Parallel-Computing/main.cpp
-iostream
--
-string
--
-fstream
--
-vector
--
-crypt.h
--
-PCWorker.h
-/cygdrive/c/Users/ublud/Documents/GitHub/Parallel-Computing/PCWorker.h
 

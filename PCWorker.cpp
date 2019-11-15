@@ -5,6 +5,7 @@
 #include <fstream>
 #include <iostream>
 #include <crypt.h>
+#include <chrono>
 #include "PCWorker.h"
 #define FILENAME "passdict.txt"
 
@@ -15,10 +16,13 @@ PCWorker::PCWorker(std::string toCrack) {
 }
 
 void PCWorker::sequentialAttack() {
+    std::chrono::steady_clock::time_point beginAttack = std::chrono::steady_clock::now();
     for(std::string& password: passwordList){
         std::string inPlaceHashedPassword = crypt(password.c_str(), "qwerty");
         if(inPlaceHashedPassword == toCrackHashed){
+            std::chrono::steady_clock::time_point endAttack = std::chrono::steady_clock::now();
             print("Password found: "+password);
+            std::cout << "Time elapsed: " << std::chrono::duration_cast<std::chrono::nanoseconds> (endAttack - beginAttack).count() << "[ns]" << std::endl;
         }
     }
 }
