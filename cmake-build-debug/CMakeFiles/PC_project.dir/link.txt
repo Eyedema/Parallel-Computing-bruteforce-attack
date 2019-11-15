@@ -1,0 +1,1 @@
+/usr/bin/c++   -fopenmp -lcrypt -g   CMakeFiles/PC_project.dir/main.cpp.o  -o PC_project 
