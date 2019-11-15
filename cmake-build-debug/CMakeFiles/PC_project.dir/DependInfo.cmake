@@ -4,7 +4,8 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
-  "/home/eyedema/CLionProjects/PC-project/main.cpp" "/home/eyedema/CLionProjects/PC-project/cmake-build-debug/CMakeFiles/PC_project.dir/main.cpp.o"
+  "/cygdrive/c/Users/ublud/Documents/GitHub/Parallel-Computing/PCWorker.cpp" "/cygdrive/c/Users/ublud/Documents/GitHub/Parallel-Computing/cmake-build-debug/CMakeFiles/PC_project.dir/PCWorker.cpp.o"
+  "/cygdrive/c/Users/ublud/Documents/GitHub/Parallel-Computing/main.cpp" "/cygdrive/c/Users/ublud/Documents/GitHub/Parallel-Computing/cmake-build-debug/CMakeFiles/PC_project.dir/main.cpp.o"
   )
 set(CMAKE_CXX_COMPILER_ID "GNU")
 

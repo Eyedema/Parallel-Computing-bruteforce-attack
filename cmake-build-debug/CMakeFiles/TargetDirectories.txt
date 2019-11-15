@@ -1,3 +1,3 @@
-/home/eyedema/CLionProjects/PC-project/cmake-build-debug/CMakeFiles/rebuild_cache.dir
-/home/eyedema/CLionProjects/PC-project/cmake-build-debug/CMakeFiles/PC_project.dir
-/home/eyedema/CLionProjects/PC-project/cmake-build-debug/CMakeFiles/edit_cache.dir
+/cygdrive/c/Users/ublud/Documents/GitHub/Parallel-Computing/cmake-build-debug/CMakeFiles/rebuild_cache.dir
+/cygdrive/c/Users/ublud/Documents/GitHub/Parallel-Computing/cmake-build-debug/CMakeFiles/PC_project.dir
+/cygdrive/c/Users/ublud/Documents/GitHub/Parallel-Computing/cmake-build-debug/CMakeFiles/edit_cache.dir

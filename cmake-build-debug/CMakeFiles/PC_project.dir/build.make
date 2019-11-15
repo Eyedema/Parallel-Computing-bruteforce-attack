@@ -34,19 +34,19 @@ cmake_force:
 SHELL = /bin/sh
 
 # The CMake executable.
-CMAKE_COMMAND = /home/eyedema/.local/share/JetBrains/Toolbox/apps/CLion/ch-0/192.7142.39/bin/cmake/linux/bin/cmake
+CMAKE_COMMAND = /cygdrive/c/Users/ublud/.CLion2019.2/system/cygwin_cmake/bin/cmake.exe
 
 # The command to remove a file.
-RM = /home/eyedema/.local/share/JetBrains/Toolbox/apps/CLion/ch-0/192.7142.39/bin/cmake/linux/bin/cmake -E remove -f
+RM = /cygdrive/c/Users/ublud/.CLion2019.2/system/cygwin_cmake/bin/cmake.exe -E remove -f
 
 # Escaping for special characters.
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/eyedema/CLionProjects/PC-project
+CMAKE_SOURCE_DIR = /cygdrive/c/Users/ublud/Documents/GitHub/Parallel-Computing
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/eyedema/CLionProjects/PC-project/cmake-build-debug
+CMAKE_BINARY_DIR = /cygdrive/c/Users/ublud/Documents/GitHub/Parallel-Computing/cmake-build-debug
 
 # Include any dependencies generated for this target.
 include CMakeFiles/PC_project.dir/depend.make
@@ -59,32 +59,47 @@ include CMakeFiles/PC_project.dir/flags.make
 
 CMakeFiles/PC_project.dir/main.cpp.o: CMakeFiles/PC_project.dir/flags.make
 CMakeFiles/PC_project.dir/main.cpp.o: ../main.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/eyedema/CLionProjects/PC-project/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/PC_project.dir/main.cpp.o"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/PC_project.dir/main.cpp.o -c /home/eyedema/CLionProjects/PC-project/main.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/cygdrive/c/Users/ublud/Documents/GitHub/Parallel-Computing/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/PC_project.dir/main.cpp.o"
+	/usr/bin/c++.exe  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/PC_project.dir/main.cpp.o -c /cygdrive/c/Users/ublud/Documents/GitHub/Parallel-Computing/main.cpp
 
 CMakeFiles/PC_project.dir/main.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/PC_project.dir/main.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/eyedema/CLionProjects/PC-project/main.cpp > CMakeFiles/PC_project.dir/main.cpp.i
+	/usr/bin/c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /cygdrive/c/Users/ublud/Documents/GitHub/Parallel-Computing/main.cpp > CMakeFiles/PC_project.dir/main.cpp.i
 
 CMakeFiles/PC_project.dir/main.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/PC_project.dir/main.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/eyedema/CLionProjects/PC-project/main.cpp -o CMakeFiles/PC_project.dir/main.cpp.s
+	/usr/bin/c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /cygdrive/c/Users/ublud/Documents/GitHub/Parallel-Computing/main.cpp -o CMakeFiles/PC_project.dir/main.cpp.s
+
+CMakeFiles/PC_project.dir/PCWorker.cpp.o: CMakeFiles/PC_project.dir/flags.make
+CMakeFiles/PC_project.dir/PCWorker.cpp.o: ../PCWorker.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/cygdrive/c/Users/ublud/Documents/GitHub/Parallel-Computing/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/PC_project.dir/PCWorker.cpp.o"
+	/usr/bin/c++.exe  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/PC_project.dir/PCWorker.cpp.o -c /cygdrive/c/Users/ublud/Documents/GitHub/Parallel-Computing/PCWorker.cpp
+
+CMakeFiles/PC_project.dir/PCWorker.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/PC_project.dir/PCWorker.cpp.i"
+	/usr/bin/c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /cygdrive/c/Users/ublud/Documents/GitHub/Parallel-Computing/PCWorker.cpp > CMakeFiles/PC_project.dir/PCWorker.cpp.i
+
+CMakeFiles/PC_project.dir/PCWorker.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/PC_project.dir/PCWorker.cpp.s"
+	/usr/bin/c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /cygdrive/c/Users/ublud/Documents/GitHub/Parallel-Computing/PCWorker.cpp -o CMakeFiles/PC_project.dir/PCWorker.cpp.s
 
 # Object files for target PC_project
 PC_project_OBJECTS = \
-"CMakeFiles/PC_project.dir/main.cpp.o"
+"CMakeFiles/PC_project.dir/main.cpp.o" \
+"CMakeFiles/PC_project.dir/PCWorker.cpp.o"
 
 # External object files for target PC_project
 PC_project_EXTERNAL_OBJECTS =
 
-PC_project: CMakeFiles/PC_project.dir/main.cpp.o
-PC_project: CMakeFiles/PC_project.dir/build.make
-PC_project: CMakeFiles/PC_project.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/eyedema/CLionProjects/PC-project/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Linking CXX executable PC_project"
+PC_project.exe: CMakeFiles/PC_project.dir/main.cpp.o
+PC_project.exe: CMakeFiles/PC_project.dir/PCWorker.cpp.o
+PC_project.exe: CMakeFiles/PC_project.dir/build.make
+PC_project.exe: CMakeFiles/PC_project.dir/link.txt
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/cygdrive/c/Users/ublud/Documents/GitHub/Parallel-Computing/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Linking CXX executable PC_project.exe"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/PC_project.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
-CMakeFiles/PC_project.dir/build: PC_project
+CMakeFiles/PC_project.dir/build: PC_project.exe
 
 .PHONY : CMakeFiles/PC_project.dir/build
 
@@ -93,6 +108,6 @@ CMakeFiles/PC_project.dir/clean:
 .PHONY : CMakeFiles/PC_project.dir/clean
 
 CMakeFiles/PC_project.dir/depend:
-	cd /home/eyedema/CLionProjects/PC-project/cmake-build-debug && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/eyedema/CLionProjects/PC-project /home/eyedema/CLionProjects/PC-project /home/eyedema/CLionProjects/PC-project/cmake-build-debug /home/eyedema/CLionProjects/PC-project/cmake-build-debug /home/eyedema/CLionProjects/PC-project/cmake-build-debug/CMakeFiles/PC_project.dir/DependInfo.cmake --color=$(COLOR)
+	cd /cygdrive/c/Users/ublud/Documents/GitHub/Parallel-Computing/cmake-build-debug && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /cygdrive/c/Users/ublud/Documents/GitHub/Parallel-Computing /cygdrive/c/Users/ublud/Documents/GitHub/Parallel-Computing /cygdrive/c/Users/ublud/Documents/GitHub/Parallel-Computing/cmake-build-debug /cygdrive/c/Users/ublud/Documents/GitHub/Parallel-Computing/cmake-build-debug /cygdrive/c/Users/ublud/Documents/GitHub/Parallel-Computing/cmake-build-debug/CMakeFiles/PC_project.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : CMakeFiles/PC_project.dir/depend
 

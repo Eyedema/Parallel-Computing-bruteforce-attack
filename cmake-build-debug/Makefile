@@ -39,19 +39,19 @@ cmake_force:
 SHELL = /bin/sh
 
 # The CMake executable.
-CMAKE_COMMAND = /home/eyedema/.local/share/JetBrains/Toolbox/apps/CLion/ch-0/192.7142.39/bin/cmake/linux/bin/cmake
+CMAKE_COMMAND = /cygdrive/c/Users/ublud/.CLion2019.2/system/cygwin_cmake/bin/cmake.exe
 
 # The command to remove a file.
-RM = /home/eyedema/.local/share/JetBrains/Toolbox/apps/CLion/ch-0/192.7142.39/bin/cmake/linux/bin/cmake -E remove -f
+RM = /cygdrive/c/Users/ublud/.CLion2019.2/system/cygwin_cmake/bin/cmake.exe -E remove -f
 
 # Escaping for special characters.
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/eyedema/CLionProjects/PC-project
+CMAKE_SOURCE_DIR = /cygdrive/c/Users/ublud/Documents/GitHub/Parallel-Computing
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/eyedema/CLionProjects/PC-project/cmake-build-debug
+CMAKE_BINARY_DIR = /cygdrive/c/Users/ublud/Documents/GitHub/Parallel-Computing/cmake-build-debug
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -59,7 +59,7 @@ CMAKE_BINARY_DIR = /home/eyedema/CLionProjects/PC-project/cmake-build-debug
 # Special rule for the target rebuild_cache
 rebuild_cache:
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake to regenerate build system..."
-	/home/eyedema/.local/share/JetBrains/Toolbox/apps/CLion/ch-0/192.7142.39/bin/cmake/linux/bin/cmake -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
+	/cygdrive/c/Users/ublud/.CLion2019.2/system/cygwin_cmake/bin/cmake.exe -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
 .PHONY : rebuild_cache
 
 # Special rule for the target rebuild_cache
@@ -70,7 +70,7 @@ rebuild_cache/fast: rebuild_cache
 # Special rule for the target edit_cache
 edit_cache:
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "No interactive CMake dialog available..."
-	/home/eyedema/.local/share/JetBrains/Toolbox/apps/CLion/ch-0/192.7142.39/bin/cmake/linux/bin/cmake -E echo No\ interactive\ CMake\ dialog\ available.
+	/cygdrive/c/Users/ublud/.CLion2019.2/system/cygwin_cmake/bin/cmake.exe -E echo No\ interactive\ CMake\ dialog\ available.
 .PHONY : edit_cache
 
 # Special rule for the target edit_cache
@@ -80,9 +80,9 @@ edit_cache/fast: edit_cache
 
 # The main all target
 all: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/eyedema/CLionProjects/PC-project/cmake-build-debug/CMakeFiles /home/eyedema/CLionProjects/PC-project/cmake-build-debug/CMakeFiles/progress.marks
+	$(CMAKE_COMMAND) -E cmake_progress_start /cygdrive/c/Users/ublud/Documents/GitHub/Parallel-Computing/cmake-build-debug/CMakeFiles /cygdrive/c/Users/ublud/Documents/GitHub/Parallel-Computing/cmake-build-debug/CMakeFiles/progress.marks
 	$(MAKE) -f CMakeFiles/Makefile2 all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/eyedema/CLionProjects/PC-project/cmake-build-debug/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /cygdrive/c/Users/ublud/Documents/GitHub/Parallel-Computing/cmake-build-debug/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
@@ -123,6 +123,33 @@ PC_project/fast:
 	$(MAKE) -f CMakeFiles/PC_project.dir/build.make CMakeFiles/PC_project.dir/build
 .PHONY : PC_project/fast
 
+PCWorker.o: PCWorker.cpp.o
+
+.PHONY : PCWorker.o
+
+# target to build an object file
+PCWorker.cpp.o:
+	$(MAKE) -f CMakeFiles/PC_project.dir/build.make CMakeFiles/PC_project.dir/PCWorker.cpp.o
+.PHONY : PCWorker.cpp.o
+
+PCWorker.i: PCWorker.cpp.i
+
+.PHONY : PCWorker.i
+
+# target to preprocess a source file
+PCWorker.cpp.i:
+	$(MAKE) -f CMakeFiles/PC_project.dir/build.make CMakeFiles/PC_project.dir/PCWorker.cpp.i
+.PHONY : PCWorker.cpp.i
+
+PCWorker.s: PCWorker.cpp.s
+
+.PHONY : PCWorker.s
+
+# target to generate assembly for a file
+PCWorker.cpp.s:
+	$(MAKE) -f CMakeFiles/PC_project.dir/build.make CMakeFiles/PC_project.dir/PCWorker.cpp.s
+.PHONY : PCWorker.cpp.s
+
 main.o: main.cpp.o
 
 .PHONY : main.o
@@ -159,6 +186,9 @@ help:
 	@echo "... rebuild_cache"
 	@echo "... PC_project"
 	@echo "... edit_cache"
+	@echo "... PCWorker.o"
+	@echo "... PCWorker.i"
+	@echo "... PCWorker.s"
 	@echo "... main.o"
 	@echo "... main.i"
 	@echo "... main.s"
