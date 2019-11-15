@@ -11,7 +11,7 @@
 
 class PCWorker {
 public:
-    PCWorker(std::string toCrack);
+    PCWorker(std::string toCrack, int tries);
     void sequentialAttack();
 
 private:
@@ -21,6 +21,9 @@ private:
     std::vector<std::string> passwordList;
     std::string toCrack;
     std::string toCrackHashed;
+    int tries;
+    std::vector<long> runTimesSequential;
+    long getAverageTime(std::vector<long> &vec);
 };
 
 
