@@ -8,7 +8,7 @@
 
 int main(int argc, char** argv) {
 
-    PCWorker PCWorker(argv[1], std::strtol(argv[2], nullptr, 0)); // vjht1051
+    PCWorker PCWorker(argv[1], std::strtol(argv[2], nullptr, 0)); // password: vjht1051, 10 tries
     PCWorker.sequentialAttack();
     return 0;
 }
