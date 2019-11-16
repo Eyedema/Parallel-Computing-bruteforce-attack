@@ -7,6 +7,7 @@
 #include <crypt.h>
 #include <chrono>
 #include <omp.h>
+#include <cmath>
 #include "PCWorker.h"
 #define FILENAME "passdict.txt"
 
@@ -37,14 +38,14 @@ void PCWorker::parallelAutomaticAttack(int numberOfThreads) {
 
 void PCWorker::parallelAttack(int numberOfThreads) {
     printf("--- Begin parallel attack ---\n");
-    double splittedPasswordListRowsPerThread = (double)passwordList.size() / (double)numberOfThreads;
-    for (int i = 0; i < tries; ++i) {
+    int splittedPasswordListRowsPerThread = static_cast<int>(ceil((double)passwordList.size() / (double)numberOfThreads));
+    for (int i = 0; i < tries; i++) {
         volatile bool passwordNotFound = true;
         std::chrono::steady_clock::time_point beginAttack = std::chrono::steady_clock::now();
         #pragma omp parallel num_threads(numberOfThreads) shared(passwordNotFound)
         {
             int threadNumber = omp_get_thread_num();
-            for (int j = splittedPasswordListRowsPerThread*threadNumber; j < splittedPasswordListRowsPerThread*(threadNumber + 1 ); ++j) {
+            for (int j = splittedPasswordListRowsPerThread*threadNumber; j <= splittedPasswordListRowsPerThread*(threadNumber + 1 ); j++) {
                 if(j < passwordList.size() && passwordNotFound){
                     std::string inPlaceHashedPassword = crypt(passwordList[j].c_str(), "qwerty");
                     if(inPlaceHashedPassword == toCrackHashed){
