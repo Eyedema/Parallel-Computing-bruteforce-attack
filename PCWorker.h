@@ -26,6 +26,7 @@ private:
     int tries;
     std::vector<long> runTimesSequential;
     std::vector<long> runTimesParallel;
+    std::vector<long> runTimesAutomaticParallel;
     long getAverageTime(std::vector<long> &vec);
 };
 
