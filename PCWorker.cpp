@@ -14,7 +14,6 @@
 
 PCWorker::PCWorker(std::string toCrack, int tries) {
     passwordList = loadPasswordList();
-    this->toCrack = toCrack;
     toCrackHashed = crypt(toCrack.c_str(), "qwerty");
     this->tries = tries;
 }
@@ -24,12 +23,12 @@ void PCWorker::parallelAutomaticAttack(int numberOfThreads) {
     for (int i = 0; i < tries; ++i) {
         volatile bool passwordNotFound = true;
         std::chrono::steady_clock::time_point beginAttack = std::chrono::steady_clock::now();
-#pragma omp parallel num_threads(numberOfThreads) shared(passwordNotFound)
+        #pragma omp parallel num_threads(numberOfThreads) shared(passwordNotFound)
         {
             struct crypt_data threadSafeCryptData;
             threadSafeCryptData.initialized = 0;
             int threadNumber = omp_get_thread_num();
-#pragma omp for
+            #pragma omp for
             for (int j = 0; j < passwordList.size(); j++) {
                 if (!passwordNotFound) continue;
                 char *inPlaceHashedPassword = crypt_r(passwordList[j].c_str(), "qwerty", &threadSafeCryptData);
@@ -58,7 +57,7 @@ void PCWorker::parallelAttack(int numberOfThreads) {
     for (int i = 0; i < tries; i++) {
         volatile bool passwordNotFound = true;
         std::chrono::steady_clock::time_point beginAttack = std::chrono::steady_clock::now();
-#pragma omp parallel num_threads(numberOfThreads) shared(passwordNotFound)
+        #pragma omp parallel num_threads(numberOfThreads) shared(passwordNotFound)
         {
             struct crypt_data threadSafeCryptData;
             threadSafeCryptData.initialized = 0;
@@ -128,6 +127,15 @@ std::vector<std::string> PCWorker::loadPasswordList() {
     return vec;
 }
 
+void PCWorker::computeSpeedUp() {
+    int i = 0;
+    for(long &result : runTimesSequential){
+        speedUpSequentialToParallel.push_back(double(result)/double(runTimesParallel[i]));
+        speedUpSequentialToAutomaticParallel.push_back(double(result)/double(runTimesAutomaticParallel[i]));
+        i++;
+    }
+}
+
 void PCWorker::print(std::string toPrint) {
     std::cout << toPrint << std::endl;
 }
@@ -144,4 +152,24 @@ long PCWorker::getAverageTime(std::vector<long> &vec) {
         average += time;
     }
     return average / tries;
+}
+
+std::vector<long> PCWorker::getRunTimesSequential() {
+    return runTimesSequential;
+}
+
+std::vector<long> PCWorker::getRunTimesParallel() {
+    return runTimesParallel;
+}
+
+std::vector<long> PCWorker::getRunTimesAutomaticParallel() {
+    return runTimesAutomaticParallel;
+}
+
+std::vector<double> PCWorker::getSpeedUpSequentialToParallel() {
+    return speedUpSequentialToParallel;
+}
+
+std::vector<double> PCWorker::getSpeedUpSequentialToAutomaticParallel() {
+    return speedUpSequentialToAutomaticParallel;
 }
