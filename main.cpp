@@ -12,30 +12,29 @@ int main(int argc, char **argv) {
         return 1;
     }
     std::vector<int> numberOfThreads = {1, 2, 4, 6, 8, 10, 12, 14, 16, 18, 20, 24, 100, 150};
-    CSVWriter CSVWriter;
-    for (int i = 1; i <= argc-2; ++i) {
-        PCWorker PCWorker(argv[i], std::atoi(argv[argc-1]));
+    std::vector<std::string> columnNames = {"Run Times Sequential", "Run Times Parallel",
+                                            "Run Times Automatic Parallel", "Speed up from Sequential to Parallel",
+                                            "Speed up from Sequential to Automatic Parallel", "Tries", "Thread",
+                                            "Password"};
+    CSVWriter CSVWriter("PC Results.csv", columnNames);
+    for (int i = 1; i <= argc - 2; ++i) {
+        PCWorker PCWorker(argv[i], std::atoi(argv[argc - 1]));
         PCWorker.sequentialAttack();
         for (int &number: numberOfThreads) {
             PCWorker.parallelAttack(number);
             PCWorker.parallelAutomaticAttack(number);
             PCWorker.computeSpeedUp();
-            std::vector<std::pair<std::string, std::vector<long>>> values = {{"Run Times Sequential",
-                                                                                     PCWorker.getRunTimesSequential()},
-                                                                             {"Run Times Parallel",
-                                                                                     PCWorker.getRunTimesParallel()},
-                                                                             {"Run Times Automatic Parallel",
-                                                                                     PCWorker.getRunTimesAutomaticParallel()}};
+            std::vector<std::vector<long>> values = {
+                    PCWorker.getRunTimesSequential(),
+                    PCWorker.getRunTimesParallel(),
+                    PCWorker.getRunTimesAutomaticParallel()};
 
-            std::vector<std::pair<std::string, std::vector<double>>> valuesDouble = {{"Speed up from Sequential to Parallel",
-                                                                                             PCWorker.getSpeedUpSequentialToParallel()},
-                                                                                     {"Speed up from Sequential to Automatic Parallel",
-                                                                                             PCWorker.getSpeedUpSequentialToAutomaticParallel()}};
-
-            CSVWriter.writeCSV(std::string("./results/PC Results ")+argv[1]+" "+std::to_string(number)+".csv", values, valuesDouble, std::strtol(argv[2], nullptr, 0));
+            std::vector<std::vector<double>> valuesDouble = {
+                    PCWorker.getSpeedUpSequentialToParallel(),
+                    PCWorker.getSpeedUpSequentialToAutomaticParallel()};
+            CSVWriter.writeCSV(values, valuesDouble, std::stoi(argv[argc - 1]), argv[i], number);
             PCWorker.reset();
         }
     }
-
     return 0;
 }

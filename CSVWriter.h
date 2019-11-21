@@ -10,8 +10,12 @@
 
 class CSVWriter {
 public:
-    void writeCSV(std::string filename, std::vector<std::pair<std::string, std::vector<long>>> dataset,
-                  std::vector<std::pair<std::string, std::vector<double>>> dataset2, int tries);
+    CSVWriter(std::string name, std::vector<std::string> vector);
+    void writeCSV(std::vector<std::vector<long>> dataset,
+                  std::vector<std::vector<double>> dataset2, int tries, std::string password, int number);
+
+private:
+    std::string filename;
 };
 
 
