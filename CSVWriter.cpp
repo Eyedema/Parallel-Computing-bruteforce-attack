@@ -3,10 +3,13 @@
 //
 
 #include <fstream>
+#include <sys/stat.h>
 #include "CSVWriter.h"
 
 void CSVWriter::writeCSV(std::string filename, std::vector<std::pair<std::string, std::vector<long>>> dataset,
                          std::vector<std::pair<std::string, std::vector<double>>> dataset2, int tries) {
+
+    mkdir("./results", 0777);
     std::ofstream myFile(filename);
 
 // Send column names to the stream

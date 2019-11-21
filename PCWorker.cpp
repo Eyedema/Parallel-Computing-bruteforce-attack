@@ -7,6 +7,7 @@
 #include <crypt.h>
 #include <chrono>
 #include <omp.h>
+#include <string>
 #include <cmath>
 #include "PCWorker.h"
 
@@ -23,12 +24,12 @@ void PCWorker::parallelAutomaticAttack(int numberOfThreads) {
     for (int i = 0; i < tries; ++i) {
         volatile bool passwordNotFound = true;
         std::chrono::steady_clock::time_point beginAttack = std::chrono::steady_clock::now();
-        #pragma omp parallel num_threads(numberOfThreads) shared(passwordNotFound)
+#pragma omp parallel num_threads(numberOfThreads) shared(passwordNotFound)
         {
             struct crypt_data threadSafeCryptData;
             threadSafeCryptData.initialized = 0;
             int threadNumber = omp_get_thread_num();
-            #pragma omp for
+#pragma omp for
             for (int j = 0; j < passwordList.size(); j++) {
                 if (!passwordNotFound) continue;
                 char *inPlaceHashedPassword = crypt_r(passwordList[j].c_str(), "qwerty", &threadSafeCryptData);
@@ -52,18 +53,18 @@ void PCWorker::parallelAutomaticAttack(int numberOfThreads) {
 
 void PCWorker::parallelAttack(int numberOfThreads) {
     printf("--- Begin parallel attack ---\n");
-    int splittedPasswordListRowsPerThread = static_cast<int>(ceil(
+    int splitPasswordListRowsPerThread = static_cast<int>(ceil(
             (double) passwordList.size() / (double) numberOfThreads));
     for (int i = 0; i < tries; i++) {
         volatile bool passwordNotFound = true;
         std::chrono::steady_clock::time_point beginAttack = std::chrono::steady_clock::now();
-        #pragma omp parallel num_threads(numberOfThreads) shared(passwordNotFound)
+#pragma omp parallel num_threads(numberOfThreads) shared(passwordNotFound)
         {
             struct crypt_data threadSafeCryptData;
             threadSafeCryptData.initialized = 0;
             int threadNumber = omp_get_thread_num();
-            for (int j = splittedPasswordListRowsPerThread * threadNumber;
-                 j < splittedPasswordListRowsPerThread * (threadNumber + 1); j++) {
+            for (int j = splitPasswordListRowsPerThread * threadNumber;
+                 j < splitPasswordListRowsPerThread * (threadNumber + 1); j++) {
                 if (j < passwordList.size() && passwordNotFound) {
                     char *inPlaceHashedPassword = crypt_r(passwordList[j].c_str(), "qwerty", &threadSafeCryptData);
                     if (inPlaceHashedPassword == toCrackHashed) {
@@ -88,14 +89,14 @@ void PCWorker::parallelAttack(int numberOfThreads) {
 }
 
 void PCWorker::sequentialAttack() {
-    printf("--- Begin sequential attack ---\n");
+    std::cout << "--- Begin sequential attack ---" << std::endl;
     for (int i = 0; i < tries; ++i) {
         std::chrono::steady_clock::time_point beginAttack = std::chrono::steady_clock::now();
         for (std::string &password: passwordList) {
             std::string inPlaceHashedPassword = crypt(password.c_str(), "qwerty");
             if (inPlaceHashedPassword == toCrackHashed) {
                 std::chrono::steady_clock::time_point endAttack = std::chrono::steady_clock::now();
-                printf("Pass #%d - Password found: %s - ", i, password.c_str());
+                std::cout << "Pass #" << i << " - Password found: " << password.c_str();
                 std::cout << "Time elapsed: "
                           << std::chrono::duration_cast<std::chrono::nanoseconds>(endAttack - beginAttack).count()
                           << " nanoseconds" << std::endl;
@@ -129,9 +130,9 @@ std::vector<std::string> PCWorker::loadPasswordList() {
 
 void PCWorker::computeSpeedUp() {
     int i = 0;
-    for(long &result : runTimesSequential){
-        speedUpSequentialToParallel.push_back(double(result)/double(runTimesParallel[i]));
-        speedUpSequentialToAutomaticParallel.push_back(double(result)/double(runTimesAutomaticParallel[i]));
+    for (long &result : runTimesSequential) {
+        speedUpSequentialToParallel.push_back(double(result) / double(runTimesParallel[i]));
+        speedUpSequentialToAutomaticParallel.push_back(double(result) / double(runTimesAutomaticParallel[i]));
         i++;
     }
 }
@@ -172,4 +173,11 @@ std::vector<double> PCWorker::getSpeedUpSequentialToParallel() {
 
 std::vector<double> PCWorker::getSpeedUpSequentialToAutomaticParallel() {
     return speedUpSequentialToAutomaticParallel;
+}
+
+void PCWorker::reset() {
+    runTimesAutomaticParallel = {};
+    runTimesParallel = {};
+    speedUpSequentialToAutomaticParallel = {};
+    speedUpSequentialToParallel = {};
 }

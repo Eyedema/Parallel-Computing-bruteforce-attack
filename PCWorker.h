@@ -22,6 +22,8 @@ public:
     std::vector<double> getSpeedUpSequentialToAutomaticParallel();
     void computeSpeedUp();
 
+    void reset();
+
 private:
     std::vector<std::string> loadPasswordList();
     void print(std::string toPrint);
@@ -35,6 +37,7 @@ private:
     std::vector<double> speedUpSequentialToParallel;
     std::vector<double> speedUpSequentialToAutomaticParallel;
     long getAverageTime(std::vector<long> &vec);
+
 };
 
 
