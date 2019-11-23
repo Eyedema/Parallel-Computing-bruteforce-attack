@@ -11,7 +11,7 @@
 #include <cmath>
 #include "PCWorker.h"
 
-#define FILENAME "passdict.txt"
+#define FILENAME "output.txt"
 
 PCWorker::PCWorker(std::string toCrack, int tries) {
     passwordList = loadPasswordList();
