@@ -11,7 +11,7 @@ int main(int argc, char **argv) {
         std::cout << "PC_project.exe password_1 [password_2 ... password_n] numberOfTries" << std::endl;
         return 1;
     }
-    std::vector<int> numberOfThreads = {2, 4, 6, 8, 10, 12, 14, 16, 18, 20, 24, 100, 150};
+    std::vector<int> numberOfThreads = {2, 4, 6, 8, 10, 12, 14, 16, 18, 20, 24, 100, 150, 500, 1000, 2000};
     std::vector<std::string> columnNames = {"Run Times Sequential", "Run Times Parallel",
                                             "Run Times Automatic Parallel", "Speed up from Sequential to Parallel",
                                             "Speed up from Sequential to Automatic Parallel", "Tries", "Thread",
