@@ -36,8 +36,8 @@ void PCWorker::parallelAutomaticAttack(int numberOfThreads) {
                 char *inPlaceHashedPassword = crypt_r(passwordList[j].c_str(), "qwerty", &threadSafeCryptData);
                 if (inPlaceHashedPassword == toCrackHashed) {
                     passwordNotFound = false;
-                    printf("Pass #%d - Thread #%d - Password found: %s - ", i, threadNumber,
-                           passwordList[j].c_str());
+                    cout << "Pass #" << i << " -  Thread #" << threadNumber << " - Password found: "
+                         << passwordList[j].c_str() << endl;
                 }
             }
         }
@@ -49,7 +49,7 @@ void PCWorker::parallelAutomaticAttack(int numberOfThreads) {
                  chrono::duration_cast< chrono::nanoseconds>(endAttack - beginAttack).count());
     }
     long averageTime = getAverageTime(runTimesAutomaticParallel);
-    printf("--- Automatic parallel attack ended. Average time: %ld nanoseconds ---\n", averageTime);
+    cout << "--- Automatic parallel attack ended. Average time: " << averageTime << " nanoseconds ---" << endl;
 }
 
 void PCWorker::parallelAttack(int numberOfThreads) {
@@ -70,8 +70,8 @@ void PCWorker::parallelAttack(int numberOfThreads) {
                     char *inPlaceHashedPassword = crypt_r(passwordList[j].c_str(), "qwerty", &threadSafeCryptData);
                     if (inPlaceHashedPassword == toCrackHashed) {
                         passwordNotFound = false;
-                        printf("Pass #%d - Thread #%d - Password found: %s - ", i, threadNumber,
-                               passwordList[j].c_str());
+                        cout << "Pass #" << i << " -  Thread #" << threadNumber << " - Password found: "
+                        << passwordList[j].c_str() << endl;
                         break;
                     }
                 } else {
@@ -86,7 +86,7 @@ void PCWorker::parallelAttack(int numberOfThreads) {
                  chrono::duration_cast< chrono::nanoseconds>(endAttack - beginAttack).count());
     }
     long averageTime = getAverageTime(runTimesParallel);
-    printf("--- Parallel attack ended. Average time: %ld nanoseconds ---\n", averageTime);
+    cout << "--- Parallel attack ended. Average time: " << averageTime << " nanoseconds ---" << endl;
 }
 
 void PCWorker::sequentialAttack() {
@@ -97,7 +97,7 @@ void PCWorker::sequentialAttack() {
              string inPlaceHashedPassword = crypt(password.c_str(), "qwerty");
             if (inPlaceHashedPassword == toCrackHashed) {
                  chrono::steady_clock::time_point endAttack =  chrono::steady_clock::now();
-                 cout << "Pass #" << i << " - Password found: " << password.c_str();
+                 cout << "Pass #" << i << " - Password found: " << password.c_str() << endl;
                  cout << "Time elapsed: "
                           <<  chrono::duration_cast< chrono::nanoseconds>(endAttack - beginAttack).count()
                           << " nanoseconds" <<  endl;
@@ -108,7 +108,7 @@ void PCWorker::sequentialAttack() {
         }
     }
     long averageTime = getAverageTime(runTimesSequential);
-    printf("--- Sequential attack ended. Average time: %ld nanoseconds ---\n", averageTime);
+    cout << "--- Sequential attack ended. Average time: " << averageTime << " nanoseconds ---" << endl;
 }
 
 
@@ -181,4 +181,5 @@ void PCWorker::reset() {
     runTimesParallel = {};
     speedUpSequentialToAutomaticParallel = {};
     speedUpSequentialToParallel = {};
+    cout.flush();
 }
