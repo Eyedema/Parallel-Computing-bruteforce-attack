@@ -26,8 +26,8 @@ public:
 
 private:
     std::vector<std::string> loadPasswordList();
-    void print(std::string toPrint);
-    void printVector(std::vector<std::string> &vec);
+    static void print(std::string toPrint);
+    static void printVector(std::vector<std::string> &vec);
     std::vector<std::string> passwordList;
     std::string toCrackHashed;
     int tries;
