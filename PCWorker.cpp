@@ -25,12 +25,12 @@ void PCWorker::parallelAutomaticAttack(int numberOfThreads) {
     for (int i = 0; i < tries; ++i) {
         volatile bool passwordNotFound = true;
          chrono::steady_clock::time_point beginAttack =  chrono::steady_clock::now();
-#pragma omp parallel num_threads(numberOfThreads) shared(passwordNotFound)
+        #pragma omp parallel num_threads(numberOfThreads) shared(passwordNotFound)
         {
             struct crypt_data threadSafeCryptData;
             threadSafeCryptData.initialized = 0;
             int threadNumber = omp_get_thread_num();
-#pragma omp for
+            #pragma omp for
             for (int j = 0; j < passwordList.size(); j++) {
                 if (!passwordNotFound) continue;
                 char *inPlaceHashedPassword = crypt_r(passwordList[j].c_str(), "qwerty", &threadSafeCryptData);
@@ -59,7 +59,7 @@ void PCWorker::parallelAttack(int numberOfThreads) {
     for (int i = 0; i < tries; i++) {
         volatile bool passwordNotFound = true;
          chrono::steady_clock::time_point beginAttack =  chrono::steady_clock::now();
-#pragma omp parallel num_threads(numberOfThreads) shared(passwordNotFound)
+        #pragma omp parallel num_threads(numberOfThreads) shared(passwordNotFound)
         {
             struct crypt_data threadSafeCryptData;
             threadSafeCryptData.initialized = 0;
